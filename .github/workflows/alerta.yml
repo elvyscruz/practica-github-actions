@@ -1,0 +1,22 @@
+name: Alerta Push a Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Enviar notificación a ntfy
+        run: |
+          curl -X POST https://ntfy.sh/devops-itla \
+            -H "Title: 🚀 Push a main" \
+            -H "Tags: github,deploy,main" \
+            -H "Priority: 4" \
+            -d "Repositorio: ${{ github.repository }}
+Autor: ${{ github.actor }}
+Commit: ${{ github.event.head_commit.message }}
+SHA: ${{ github.sha }}"
