@@ -1,4 +1,4 @@
-name: Alerta Push a Main
+name: Test Hola Mundo + Notificación
 
 on:
   push:
@@ -6,10 +6,33 @@ on:
       - main
 
 jobs:
-  notify:
+  test-and-notify:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Enviar notificación a ntfy
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Ejecutar test hola.js
+        id: test_hola
         run: |
-          curl -d "Hola a todos en el itla" ntfy.sh/devops-itla
+          OUTPUT=$(node holala.js)
+          echo "Salida del programa: $OUTPUT"
+
+          if [ "$OUTPUT" != "hola mundo" ]; then
+            echo "❌ Test falló"
+            exit 1
+          fi
+
+          echo "✅ Test pasó correctamente"
+
+      - name: Enviar notificación a ntfy
+        if: success()
+        run: |
+          curl -d "✅ Test exitoso" https://ntfy.sh/devops-itla
+
