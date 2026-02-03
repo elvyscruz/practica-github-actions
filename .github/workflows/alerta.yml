@@ -13,10 +13,7 @@ jobs:
       - name: Enviar notificación a ntfy
         run: |
           curl -X POST https://ntfy.sh/devops-itla \
-            -H "Title: 🚀 Push a main" \
+            -H "Title: 🚀 Se ha hecho push a main.. att elvyscruz" \
             -H "Tags: github,deploy,main" \
             -H "Priority: 4" \
             -d "Repositorio: ${{ github.repository }}
-Autor: ${{ github.actor }}
-Commit: ${{ github.event.head_commit.message }}
-SHA: ${{ github.sha }}"
