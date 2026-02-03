@@ -21,7 +21,7 @@ jobs:
       - name: Ejecutar test hola.js
         id: test_hola
         run: |
-          OUTPUT=$(node holala.js)
+          OUTPUT=$(node hola.js)
           echo "Salida del programa: $OUTPUT"
 
           if [ "$OUTPUT" != "hola mundo" ]; then
